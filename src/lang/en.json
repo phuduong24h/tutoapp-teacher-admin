@@ -1,0 +1,25 @@
+{
+    "common": {
+        "action": "Action",
+        "add": "Add new",
+        "cancel": "Cancel",
+        "confirm_delete": "Confirm Delete",
+        "delete": "Delete",
+        "edit": "Edit",
+        "enter": "Enter",
+        "manage": "Manage",
+        "ok": "OK",
+        "submit": "Submit",
+        "sure_delete": "Are you sure you want to delete this item?",
+        "welcome": "Welcome"
+    },
+    "home": {
+        "add_teacher": "Add Teacher",
+        "fee": "Fee",
+        "home": "Home",
+        "location": "Location",
+        "name": "Name",
+        "rating": "Rating",
+        "subject": "Subject"
+    }
+}

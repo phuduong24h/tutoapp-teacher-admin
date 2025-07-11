@@ -1,0 +1,25 @@
+{
+    "common": {
+        "action": "Hành động",
+        "add": "Thêm mới",
+        "cancel": "Hủy",
+        "confirm_delete": "Xác nhận xóa",
+        "delete": "Xóa",
+        "edit": "Sửa",
+        "enter": "Nhập",
+        "manage": "Quản lý",
+        "ok": "OK",
+        "submit": "Xác nhận",
+        "sure_delete": "Bạn có chắc chắn muốn xóa mục này không?",
+        "welcome": "Chào mừng"
+    },
+    "home": {
+        "add_teacher": "Thêm giáo viên",
+        "fee": "Phí",
+        "home": "Trang chủ",
+        "location": "Vị trí",
+        "name": "Tên",
+        "rating": "Xếp hạng",
+        "subject": "Chủ đề"
+    }
+}
