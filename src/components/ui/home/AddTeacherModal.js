@@ -93,8 +93,8 @@ const AddTeacherModal = ({ open, onCancel, teacher, afterClose }) => {
               name={TEACHER_FIELDS.FEE}
               required
             />
+            <Input title="Link ảnh đại diện" placeholder="Nhập URL ảnh)" name={TEACHER_FIELDS.IMAGE_URL} />
           </div>
-          <Upload title="Ảnh đại diện" name={TEACHER_FIELDS.FILES} maxCount={1} multiple={false} />
 
           <Modal.Footer onCancel={onCancel} disabled={!formik.isValid || !formik.dirty} />
         </Form>

@@ -45,8 +45,10 @@ const Home = () => {
     {
       title: t('home.image'),
       dataIndex: 'imageUrl',
-      key: 'imageUrl'
+      key: 'imageUrl',
+      render: url => <img src={url} alt="Teacher" className="size-14 rounded-full object-cover" />
     },
+
     {
       title: t('home.subject'),
       dataIndex: 'subject',
