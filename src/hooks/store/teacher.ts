@@ -51,7 +51,7 @@ export const useTeacherStore = create<TeacherStoreProps>()(
         }
       }),
       {
-        name: 'teacer',
+        name: 'teacher',
         partialize: state => omit(state, 'actions')
       }
     )

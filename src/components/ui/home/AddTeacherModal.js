@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Form, FormikProvider } from 'formik';
 import { useTranslations } from 'next-intl';
@@ -18,6 +18,8 @@ const AddTeacherModal = ({ open, onCancel, teacher, afterClose }) => {
   const isEdit = !!teacher;
 
   const { addTeacher, updateTeacher } = useTeacherStoreActions();
+
+  const [fileList, setFileList] = useState([]);
 
   const formik = useValidate({
     initialValues: {
@@ -47,13 +49,25 @@ const AddTeacherModal = ({ open, onCancel, teacher, afterClose }) => {
         [TEACHER_FIELDS.LOCATION]: teacher.location || '',
         [TEACHER_FIELDS.RATING]: teacher.rating || 0,
         [TEACHER_FIELDS.FEE]: teacher.fee || '',
-        [TEACHER_FIELDS.IMAGE_URL]: teacher.imageUrl || 'null'
+        [TEACHER_FIELDS.IMAGE_URL]: teacher.imageUrl || ''
       });
+
+      if (teacher.imageUrl) {
+        setFileList([
+          {
+            uid: '-1',
+            name: 'Ảnh hiện tại',
+            status: 'done',
+            url: teacher.imageUrl
+          }
+        ]);
+      }
     }
   }, [open]);
 
   const onAfterClose = () => {
     formik.resetForm();
+    setFileList([]);
     afterClose?.();
   };
 
@@ -93,7 +107,13 @@ const AddTeacherModal = ({ open, onCancel, teacher, afterClose }) => {
               name={TEACHER_FIELDS.FEE}
               required
             />
-            <Input title="Link ảnh đại diện" placeholder="Nhập URL ảnh)" name={TEACHER_FIELDS.IMAGE_URL} />
+            <Upload
+              title="Ảnh đại diện"
+              name={TEACHER_FIELDS.IMAGE_URL}
+              fileList={fileList}
+              setFileList={setFileList}
+              setFieldValue={formik.setFieldValue}
+            />
           </div>
 
           <Modal.Footer onCancel={onCancel} disabled={!formik.isValid || !formik.dirty} />

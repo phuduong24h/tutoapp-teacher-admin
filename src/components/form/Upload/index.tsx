@@ -4,12 +4,12 @@ import { useState } from 'react';
 
 import { PlusOutlined } from '@ant-design/icons';
 import { Image, Upload as AntdUpload } from 'antd';
-import { UploadChangeParam } from 'antd/es/upload';
 import { FormWrapperProps } from 'types';
 
 import FormWrapper from '../FormWrapper';
 
 import type { UploadFile, UploadProps as AntdUploadProps } from 'antd';
+import type { UploadChangeParam } from 'antd/es/upload';
 
 type FileType = Parameters<Required<AntdUploadProps>['beforeUpload']>[0];
 
@@ -25,6 +25,7 @@ interface UploadProps extends Omit<AntdUploadProps, 'children'>, FormWrapperProp
   fileList: UploadFile[];
   setFileList: (fileList: UploadFile[]) => void;
   setFieldValue?: (field: string, value: any) => void;
+  name?: string;
 }
 
 const UploadBase = ({ maxCount = 1, onChange, fileList, setFileList, setFieldValue, name, ...props }: UploadProps) => {
@@ -32,22 +33,31 @@ const UploadBase = ({ maxCount = 1, onChange, fileList, setFileList, setFieldVal
   const [previewImage, setPreviewImage] = useState('');
 
   const handlePreview = async (file: UploadFile) => {
-    if (!file.url && !file.preview) {
+    if (!file.preview && file.originFileObj) {
       file.preview = await getBase64(file.originFileObj as FileType);
     }
-    setPreviewImage(file.url || (file.preview as string));
+    setPreviewImage(file.preview || file.url || '');
     setPreviewOpen(true);
   };
 
-  const handleChange = async (info: UploadChangeParam<UploadFile<string>>) => {
+  const handleChange = async (info: UploadChangeParam<UploadFile>) => {
     const { fileList: newFileList } = info;
-    setFileList?.(newFileList);
-    onChange?.(info);
 
-    const file = info.file.originFileObj;
-    if (file && setFieldValue && name) {
-      const base64 = await getBase64(file);
-      setFieldValue(name, base64);
+    const updatedFileList = await Promise.all(
+      newFileList.map(async file => {
+        if (file.originFileObj && !file.preview) {
+          file.preview = await getBase64(file.originFileObj);
+        }
+        return file;
+      })
+    );
+
+    setFileList(updatedFileList);
+    onChange?.({ ...info, fileList: updatedFileList });
+
+    const lastFile = updatedFileList[updatedFileList.length - 1];
+    if (lastFile?.preview && setFieldValue && name) {
+      setFieldValue(name, lastFile.preview);
     }
   };
 
@@ -59,9 +69,10 @@ const UploadBase = ({ maxCount = 1, onChange, fileList, setFileList, setFieldVal
         onPreview={handlePreview}
         maxCount={maxCount}
         multiple={false}
-        {...props}
-        onChange={handleChange}>
-        {(!fileList || fileList.length < maxCount) && (
+        onChange={handleChange}
+        beforeUpload={() => false}
+        {...props}>
+        {fileList.length < maxCount && (
           <button type="button" className="flex flex-col items-center gap-2 border-none bg-none">
             <PlusOutlined />
             <div>Upload</div>
