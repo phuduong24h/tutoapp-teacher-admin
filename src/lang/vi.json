@@ -20,6 +20,7 @@
         "location": "Vị trí",
         "name": "Tên",
         "rating": "Xếp hạng",
-        "subject": "Chủ đề"
+        "subject": "Chủ đề",
+        "image": "Hình ảnh"
     }
 }

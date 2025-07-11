@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import mockTeachers from 'mock-data/teachers.json';
 import { useTranslations } from 'next-intl';
 
 import { Header, Table } from 'components/common';
@@ -14,9 +15,15 @@ const Home = () => {
 
   const [visible, onShowModal, onHideModal] = useFlag();
   const teachers = useTeacherStore(state => state.teachers);
-  const { removeTeacher } = useTeacherStoreActions();
+  const { removeTeacher, addTeacher } = useTeacherStoreActions();
 
   const [teacher, setTeacher] = useState();
+
+  useEffect(() => {
+    if (teachers.length === 0) {
+      mockTeachers.forEach(teacherItem => addTeacher(teacherItem));
+    }
+  }, []);
 
   const handleEdit = value => {
     setTeacher(value);
@@ -34,6 +41,11 @@ const Home = () => {
       title: t('home.name'),
       dataIndex: 'name',
       key: 'name'
+    },
+    {
+      title: t('home.image'),
+      dataIndex: 'imageUrl',
+      key: 'imageUrl'
     },
     {
       title: t('home.subject'),

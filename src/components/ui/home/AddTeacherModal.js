@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Modal } from 'components/common';
 import { Input, InputArea, Rating } from 'components/form';
+import Upload from 'components/form/Upload';
 import { useValidate } from 'hooks/base';
 import { useTeacherStoreActions } from 'hooks/store/teacher';
 import { TEACHER_FIELDS, teacherSchema } from 'utils';
@@ -24,7 +25,8 @@ const AddTeacherModal = ({ open, onCancel, teacher, afterClose }) => {
       [TEACHER_FIELDS.SUBJECT]: '',
       [TEACHER_FIELDS.LOCATION]: '',
       [TEACHER_FIELDS.RATING]: 0,
-      [TEACHER_FIELDS.FEE]: ''
+      [TEACHER_FIELDS.FEE]: '',
+      [TEACHER_FIELDS.IMAGE_URL]: ''
     },
     validationSchema: teacherSchema(t),
     onSubmit: async value => {
@@ -44,7 +46,8 @@ const AddTeacherModal = ({ open, onCancel, teacher, afterClose }) => {
         [TEACHER_FIELDS.SUBJECT]: teacher.subject || '',
         [TEACHER_FIELDS.LOCATION]: teacher.location || '',
         [TEACHER_FIELDS.RATING]: teacher.rating || 0,
-        [TEACHER_FIELDS.FEE]: teacher.fee || ''
+        [TEACHER_FIELDS.FEE]: teacher.fee || '',
+        [TEACHER_FIELDS.IMAGE_URL]: teacher.imageUrl || 'null'
       });
     }
   }, [open]);
@@ -91,6 +94,8 @@ const AddTeacherModal = ({ open, onCancel, teacher, afterClose }) => {
               required
             />
           </div>
+          <Upload title="Ảnh đại diện" name={TEACHER_FIELDS.FILES} maxCount={1} multiple={false} />
+
           <Modal.Footer onCancel={onCancel} disabled={!formik.isValid || !formik.dirty} />
         </Form>
       </FormikProvider>

@@ -1,0 +1,38 @@
+[
+    {
+        "id": "1",
+        "name": "Nguyễn Văn A",
+        "imageUrl": "/images/teacher1.jpg",
+        "subject": "Toán",
+        "location": 1,
+        "rating": 4.5,
+        "fee": 300000
+    },
+    {
+        "id": "2",
+        "name": "Trần Thị B",
+        "imageUrl": "https://www.btaskee.com/wp-content/uploads/2024/01/mam-banh-keo-ngay-tet-cac-loai-mut.jpg",
+        "subject": "Văn",
+        "location": 2,
+        "rating": 4.8,
+        "fee": 350000
+    },
+    {
+        "id": "3",
+        "name": "Lê Văn C",
+        "imageUrl": "/images/teacher3.jpg",
+        "subject": "Tiếng Anh",
+        "location": 3,
+        "rating": 4.2,
+        "fee": 400000
+    },
+    {
+        "id": "4",
+        "name": "Phạm Thị D",
+        "imageUrl": "/images/teacher4.jpg",
+        "subject": "Hóa học",
+        "location": 1,
+        "rating": 4.6,
+        "fee": 320000
+    }
+]

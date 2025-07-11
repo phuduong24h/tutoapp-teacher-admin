@@ -5,7 +5,8 @@ export const TEACHER_FIELDS = {
   SUBJECT: 'subject',
   LOCATION: 'location',
   RATING: 'rating',
-  FEE: 'fee'
+  FEE: 'fee',
+  IMAGE_URL: 'imageUrl'
 };
 
 export const teacherSchema = t => {

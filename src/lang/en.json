@@ -20,6 +20,7 @@
         "location": "Location",
         "name": "Name",
         "rating": "Rating",
-        "subject": "Subject"
+        "subject": "Subject",
+        "image": "Image"
     }
 }

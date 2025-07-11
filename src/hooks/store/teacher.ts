@@ -11,6 +11,7 @@ interface TeacherProp {
   location: number;
   rating: number;
   fee?: number;
+  imageUrl?: string;
 }
 
 interface TeacherStoreProps {
